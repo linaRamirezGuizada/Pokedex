@@ -40,6 +40,12 @@ function App() {
             <div>
               <button onClick={()=> getPokemon(currentId + 1)}>Next</button>
             </div>
+            <div>
+              <button onClick={()=> getPokemon(currentId - 1)}>Previus</button>
+            </div>
+            <div>
+              <label>{pokemon.weigth}</label>
+            </div>
           </div>
         )
       }
