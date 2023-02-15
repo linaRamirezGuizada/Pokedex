@@ -1,8 +1,16 @@
 import './App.css';
 import {useEffect, useState} from 'react';
 import {v4 as uuidv4} from 'uuid';
+import styled from 'styled-components';
+import {AiFillCaretLeft, AiFillCaretRight} from "react-icons/ai";
 
-function App() {
+function App() 
+{
+  const StylePokemon = styled.div`
+    background-color: green;
+    border: solid yellow 10px;
+    padding: 5px;
+    `;
   
   const Weaknesses =  [
     {
@@ -26,6 +34,8 @@ function App() {
   const [pokemon, setPokemon] = useState({sprites:{}, weight:0, abilities:[], Weaknesses:[]});
   const pokeApe = `https://pokeapi.co/api/v2/pokemon/`;
   const [isLoading, setIsLoading] = useState(false);
+  const [types, setTypes] = useState([]);
+
 
   useEffect(()=> {
     fetch(`${pokeApe}${currentId}`)
@@ -34,6 +44,7 @@ function App() {
       console.log(pokemonData);
       setcurrentId(pokemonData.id)
       setPokemon(pokemonData);
+      typePokemon();
     })
   }, [currentId]);
 
@@ -41,8 +52,14 @@ function App() {
     setcurrentId(id);
   };
 
+  const typePokemon= () => {
+    setTypes(pokemon.types.map(
+      item => item.type.name));
+   };
+
   return (
-    <div className="App">
+    <StylePokemon>
+      <div className="App">
       <header className="App-header">
       {
           isLoading ? (
@@ -53,7 +70,7 @@ function App() {
             <div>
               <label>{pokemon.name}</label> 
             </div> 
-            <div> 
+            <div className="Image"> 
               <img src={pokemon.sprites.front_default} className="App-logo" alt="logo" />
             </div> 
             <div>
@@ -71,6 +88,18 @@ function App() {
               ))}</label> 
             </div>
             <div>
+                <label>TYPES: </label>
+                <div>
+                {
+                    types.map(item => (
+                        <div className='TypePokemon'>
+                          {item}
+                      </div>
+                    ))
+                }
+                </div>
+            </div>
+            <div>
               <br/>
               <label>WEAKNESSES: </label>
               {/* <label>{pokemon.Weaknesses.map(item => (
@@ -79,18 +108,17 @@ function App() {
                 </div>
               ))}</label>    */}
             </div>            
-            <div>
-              <br/>
-              <button onClick={()=> getPokemon(currentId + 1)}>Next</button>
-            </div>
-            <div>
-              <button onClick={()=> getPokemon(currentId - 1)}>Previus</button>
+            <div className='Buttons'>
+              <AiFillCaretLeft onClick={()=> getPokemon(currentId - 1)}/>
+              <AiFillCaretRight onClick={()=> getPokemon(currentId + 1)}/>
             </div>
           </div>
         )
       }        
       </header>
-    </div> 
+      </div> 
+    </StylePokemon>   
+    
   );
 }
 
