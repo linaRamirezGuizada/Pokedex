@@ -74,6 +74,10 @@ function App()
               <img src={pokemon.sprites.front_default} className="App-logo" alt="logo" />
             </div> 
             <div>
+              <label>STATS: </label> 
+              
+            </div>
+            <div>
               <label>WEIGHT: </label> 
               <br/>
               <label>{pokemon.weight}</label> 
@@ -109,7 +113,7 @@ function App()
               ))}</label>    */}
             </div>            
             <div className='Buttons'>
-              <AiFillCaretLeft onClick={()=> getPokemon(currentId - 1)}/>
+              <AiFillCaretLeft onClick={()=> getPokemon(currentId > 1 ? currentId - 1 : currentId)}/>
               <AiFillCaretRight onClick={()=> getPokemon(currentId + 1)}/>
             </div>
           </div>
