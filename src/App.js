@@ -7,9 +7,10 @@ import {AiFillCaretLeft, AiFillCaretRight} from "react-icons/ai";
 function App() 
 {
   const StylePokemon = styled.div`
-    background-color: green;
-    border: solid yellow 10px;
-    padding: 5px;
+    background-color: #86ac41;
+    border: solid #E6DF44 0.5rem;
+    padding: 2rem;
+    border-radius: 30px;
     `;
   
   const Weaknesses =  [
@@ -31,7 +32,7 @@ function App()
   ];
 
   const [currentId, setcurrentId] = useState(1)
-  const [pokemon, setPokemon] = useState({sprites:{}, weight:0, abilities:[], Weaknesses:[]});
+  const [pokemon, setPokemon] = useState({sprites:{}, weight:0, abilities:[], Weaknesses:[], stats:[]});
   const pokeApe = `https://pokeapi.co/api/v2/pokemon/`;
   const [isLoading, setIsLoading] = useState(false);
   const [types, setTypes] = useState([]);
@@ -75,7 +76,17 @@ function App()
             </div> 
             <div>
               <label>STATS: </label> 
-              
+              <div>
+                  {
+                      pokemon.stats.map(item =>(
+                        <div  key={uuidv4()} >
+                          <label>{item.stat.name}  
+                                 {item.base_stat}
+                          </label>
+                        </div>
+                      ))
+                  }
+                </div>
             </div>
             <div>
               <label>WEIGHT: </label> 
